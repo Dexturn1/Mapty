@@ -40,7 +40,16 @@ navigator.geolocation.getCurrentPosition(
       const { lat, lng } = mapEvent.latlng;
       L.marker([lat, lng])
         .addTo(map)
-        .bindPopup('A pretty CSS popup.<br> Easily customizable.')
+        .bindPopup(
+          L.popup({
+            maxWidth: 250,
+            minWidth: 100,
+            autoClose: false,
+            closeOnClick: false,
+            className: 'running-popup',
+          }),
+        )
+        .setPopupContent('Workout')
         .openPopup();
     });
   },
