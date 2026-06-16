@@ -13,9 +13,27 @@ const inputElevation = document.querySelector('.form__input--elevation');
 
 navigator.geolocation.getCurrentPosition(
   function (position) {
-    console.log(position);
+    // console.log(position);
     const { latitude, longitude } = position.coords;
-    console.log(`https://www.google.com/maps/@${29.9660219},${79.9077507}`);
+    console.log(`https://www.google.com/maps/@${latitude},${longitude}`);
+
+    const coords = [latitude, longitude];
+
+    // Leaflet Code from from leaflet
+
+    const map = L.map('map').setView(coords, 13);
+
+    L.tileLayer(
+      'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
+      {
+        attribution: '&copy; OpenStreetMap &copy; CartoDB',
+      },
+    ).addTo(map);
+
+    L.marker(coords)
+      .addTo(map)
+      .bindPopup('A pretty CSS popup.<br> Easily customizable.')
+      .openPopup();
   },
   function () {
     alert('Could not get your position');
@@ -24,17 +42,3 @@ navigator.geolocation.getCurrentPosition(
     enableHighAccuracy: true,
   },
 );
-
-// Leaflet Code from from leaflet lib
-
-const map = L.map('map').setView([51.505, -0.09], 13);
-
-L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  attribution:
-    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-}).addTo(map);
-
-L.marker([51.5, -0.09])
-  .addTo(map)
-  .bindPopup('A pretty CSS popup.<br> Easily customizable.')
-  .openPopup();
