@@ -16,7 +16,7 @@ const inputElevation = document.querySelector('.form__input--elevation');
 
 class Workout {
   date = new Date();
-  id = Date.now().slice(-10);
+  id = Date.now().toString().slice(-10);
   constructor(coords, distance, duration) {
     // this.date = ...
     // this.id = ...
@@ -35,7 +35,7 @@ class Running extends Workout {
 
   calcPace() {
     // min/km
-    this.pace = this.duration / (this.distance / 60);
+    this.pace = this.duration / this.distance;
     return this.pace;
   }
 }
@@ -49,7 +49,7 @@ class Cycling extends Workout {
 
   calcSpeed() {
     //km/hr
-    this.speed = this.distance / this.duration;
+    this.speed = this.distance / (this.duration / 60);
   }
 }
 
@@ -82,8 +82,15 @@ class App {
       navigator.geolocation.getCurrentPosition(
         this._loadMap.bind(this),
         function () {
-          alert('Could not get your position');
-        },
+          console.log('Fallback Triggered');
+
+          this._loadMap({
+            coords: {
+              latitude: 28.6139,
+              longitude: 77.209,
+            },
+          });
+        }.bind(this),
         {
           enableHighAccuracy: true,
         },

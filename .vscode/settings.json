@@ -3,7 +3,7 @@
   "liveServer.settings.root": "/",
   "liveServer.settings.CustomBrowser": "chrome",
   "liveServer.settings.https": {
-    "enable": false,
+    "enable": true,
     "cert": "/Users/prabhatkapkoti/UDAMY/JavaScript /complete-javascript-course-master/15-Mapty/https/localhost.pem",
     "key": "/Users/prabhatkapkoti/UDAMY/JavaScript /complete-javascript-course-master/15-Mapty/https/localhost.key",
     "passphrase": "helloworld"
